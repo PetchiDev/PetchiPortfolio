@@ -43,16 +43,19 @@ function About() {
     // Stats counter animation
     statsRef.current.forEach((stat, index) => {
       const endValue = parseInt(stat.textContent)
+      // Set initial value to 0
+      stat.textContent = 0
+      
       gsap.fromTo(stat,
         { textContent: 0 },
         {
           textContent: endValue,
-          duration: 2,
+          duration: 1.5,
           ease: "power2.out",
           snap: { textContent: 1 },
-          delay: 0.5 + index * 0.2,
+          delay: 0,
           scrollTrigger: {
-            trigger: stat,
+            trigger: aboutRef.current,
             start: "top 80%",
             toggleActions: "play none none reverse"
           }
