@@ -1,7 +1,12 @@
 .projects {
   padding: 6rem 0;
-  background: #f8fafc;
+  background: var(--bg-secondary);
   position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.dark .projects {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
 }
 
 .projects::before {
@@ -11,7 +16,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+  background: linear-gradient(90deg, transparent, var(--border-light), transparent);
 }
 
 .container {
@@ -24,9 +29,10 @@
   text-align: center;
   font-size: 3rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   margin-bottom: 4rem;
   position: relative;
+  transition: color 0.3s ease;
 }
 
 .section-title::after {
@@ -37,7 +43,7 @@
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   border-radius: 2px;
 }
 
@@ -48,11 +54,11 @@
 }
 
 .project-item {
-  background: white;
+  background: var(--card-bg);
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e5e7eb;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--card-border);
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
@@ -65,7 +71,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -76,13 +82,13 @@
 
 .project-item.active {
   transform: scale(1.02);
-  box-shadow: 0 10px 40px rgba(37, 99, 235, 0.15);
-  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+  border-color: rgba(0, 212, 255, 0.3);
 }
 
 .project-image {
   height: 200px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,37 +138,42 @@
 .project-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   margin: 0;
   flex: 1;
   min-width: 200px;
+  transition: color 0.3s ease;
 }
 
 .project-duration {
   font-size: 0.9rem;
-  color: #6b7280;
-  background: #f3f4f6;
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   white-space: nowrap;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .project-description {
-  color: #4b5563;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 1.5rem;
   font-size: 1rem;
+  transition: color 0.3s ease;
 }
 
 .project-client {
-  color: #6b7280;
+  color: var(--text-muted);
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
+  transition: color 0.3s ease;
 }
 
 .project-client strong {
-  color: #374151;
+  color: var(--text-primary);
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .project-technologies {
@@ -173,8 +184,8 @@
 }
 
 .tech-tag {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  color: white;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: #0a0a0a;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.8rem;
@@ -184,10 +195,11 @@
 }
 
 .project-features h4 {
-  color: #1f2937;
+  color: var(--text-primary);
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
 }
 
 .project-features ul {
@@ -197,18 +209,19 @@
 }
 
 .project-features li {
-  color: #4b5563;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
   padding-left: 1.5rem;
   position: relative;
+  transition: color 0.3s ease;
 }
 
 .project-features li::before {
   content: '✓';
   position: absolute;
   left: 0;
-  color: #10b981;
+  color: var(--primary-color);
   font-weight: bold;
 }
 

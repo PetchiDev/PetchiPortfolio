@@ -1,13 +1,16 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ThemeProvider } from './contexts/ThemeContext'
 import './App.css'
 import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
+import Certifications from './components/Certifications'
 import Contact from './components/Contact'
 import Navbar from './components/Navbar'
+import ThemeToggle from './components/ThemeToggle'
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)
@@ -30,14 +33,18 @@ function App() {
   }, [])
 
   return (
-    <div ref={appRef} className="App">
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
-    </div>
+    <ThemeProvider>
+      <div ref={appRef} className="App">
+        <ThemeToggle />
+        <Navbar />
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Certifications />
+        <Contact />
+      </div>
+    </ThemeProvider>
   )
 }
 

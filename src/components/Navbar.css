@@ -4,11 +4,12 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--card-border);
   padding: 1rem 0;
   transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
 }
 
 .nav-container {
@@ -23,15 +24,17 @@
 .nav-logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2563eb;
+  color: var(--primary-color);
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .logo-text {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
 }
 
 .nav-menu {
@@ -51,7 +54,7 @@
   border: none;
   font-size: 1rem;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-primary);
   cursor: pointer;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -67,7 +70,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
   transition: left 0.5s ease;
 }
 
@@ -76,8 +79,8 @@
 }
 
 .nav-link:hover {
-  color: #2563eb;
-  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary-color);
+  background: var(--card-hover);
   transform: translateY(-2px);
 }
 

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Mail, Phone, MapPin, Briefcase, Linkedin, Github, ExternalLink } from 'lucide-react'
 import './Contact.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -103,10 +104,10 @@ function Contact() {
   }
 
   const socialLinks = [
-    { name: 'LinkedIn', url: 'https://linkedin.com/in/petchiappan-p-22sep', icon: '💼' },
-    { name: 'GitHub', url: 'https://github.com/petchiappan', icon: '🐙' },
-    { name: 'Email', url: 'mailto:petchidev22@gmail.com', icon: '📧' },
-    { name: 'Phone', url: 'tel:+917092183131', icon: '📱' }
+    { name: 'LinkedIn', url: 'https://linkedin.com/in/petchiappan-p-22sep', icon: Linkedin },
+    { name: 'GitHub', url: 'https://github.com/petchiappan', icon: Github },
+    { name: 'Email', url: 'mailto:petchidev22@gmail.com', icon: Mail },
+    { name: 'Phone', url: 'tel:+917092183131', icon: Phone }
   ]
 
   return (
@@ -172,7 +173,9 @@ function Contact() {
             
             <div className="contact-details">
               <div className="contact-item">
-                <span className="contact-icon">📧</span>
+                <div className="contact-icon">
+                  <Mail className="icon" />
+                </div>
                 <div>
                   <strong>Email</strong>
                   <p>petchidev22@gmail.com</p>
@@ -180,7 +183,9 @@ function Contact() {
               </div>
               
               <div className="contact-item">
-                <span className="contact-icon">📱</span>
+                <div className="contact-icon">
+                  <Phone className="icon" />
+                </div>
                 <div>
                   <strong>Phone</strong>
                   <p>+91 7092183131</p>
@@ -188,7 +193,9 @@ function Contact() {
               </div>
               
               <div className="contact-item">
-                <span className="contact-icon">📍</span>
+                <div className="contact-icon">
+                  <MapPin className="icon" />
+                </div>
                 <div>
                   <strong>Location</strong>
                   <p>Chennai, India</p>
@@ -196,7 +203,9 @@ function Contact() {
               </div>
               
               <div className="contact-item">
-                <span className="contact-icon">💼</span>
+                <div className="contact-icon">
+                  <Briefcase className="icon" />
+                </div>
                 <div>
                   <strong>Current Role</strong>
                   <p>Software Developer at KRYPTOS INFO SYSTEMS</p>
@@ -207,20 +216,23 @@ function Contact() {
             <div className="social-links">
               <h4>Follow me</h4>
               <div className="social-icons">
-                {socialLinks.map((link, index) => (
-                  <a 
-                    key={index}
-                    ref={el => socialLinksRef.current[index] = el}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-link"
-                    title={link.name}
-                  >
-                    <span className="social-icon">{link.icon}</span>
-                    <span className="social-name">{link.name}</span>
-                  </a>
-                ))}
+                {socialLinks.map((link, index) => {
+                  const IconComponent = link.icon
+                  return (
+                    <a 
+                      key={index}
+                      ref={el => socialLinksRef.current[index] = el}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link"
+                      title={link.name}
+                    >
+                      <IconComponent className="social-icon" size={20} />
+                      <span className="social-name">{link.name}</span>
+                    </a>
+                  )
+                })}
               </div>
             </div>
           </div>

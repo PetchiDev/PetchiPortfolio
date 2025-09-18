@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { User, Award, Briefcase, MapPin } from 'lucide-react'
+import userAvatar from '../assets/user-avatar.svg'
 import './About.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -123,10 +125,13 @@ function About() {
           </div>
           
           <div ref={imageRef} className="about-image">
-            <div className="image-placeholder">
-              <div className="image-content">
-                <div className="code-symbol">{'</>'}</div>
-                <div className="image-text">Developer</div>
+            <div className="image-container">
+              <img src={userAvatar} alt="Petchiappan P" className="user-image" />
+              <div className="image-overlay">
+                <div className="overlay-content">
+                  <User className="overlay-icon" />
+                  <span>Software Developer</span>
+                </div>
               </div>
             </div>
           </div>

@@ -2,13 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  /* Color Palette */
-  --primary-color: #2563eb;
-  --primary-dark: #1d4ed8;
-  --secondary-color: #7c3aed;
-  --secondary-dark: #6d28d9;
-  --accent-color: #fbbf24;
-  --accent-dark: #f59e0b;
+  /* Royal Black Color Palette */
+  --primary-color: #00d4ff;
+  --primary-dark: #0099cc;
+  --secondary-color: #ff6b35;
+  --secondary-dark: #e55a2b;
+  --accent-color: #ffd700;
+  --accent-dark: #ffb700;
+  --royal-purple: #8b5cf6;
+  --royal-blue: #3b82f6;
   
   /* Neutral Colors */
   --gray-50: #f8fafc;
@@ -21,7 +23,10 @@
   --gray-700: #334155;
   --gray-800: #1e293b;
   --gray-900: #0f172a;
-  
+}
+
+/* Light Theme (Default) */
+:root.light {
   /* Text Colors */
   --text-primary: #1f2937;
   --text-secondary: #4b5563;
@@ -38,7 +43,39 @@
   --border-medium: #d1d5db;
   --border-dark: #9ca3af;
   
-  /* Shadow Colors */
+  /* Card Colors */
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --card-hover: #f8fafc;
+}
+
+/* Dark Theme (Royal Black) */
+:root.dark {
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #e5e7eb;
+  --text-muted: #9ca3af;
+  --text-light: #6b7280;
+  
+  /* Background Colors */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  
+  /* Border Colors */
+  --border-light: #3a3a3a;
+  --border-medium: #4a4a4a;
+  --border-dark: #5a5a5a;
+  
+  /* Card Colors */
+  --card-bg: #1a1a1a;
+  --card-border: #3a3a3a;
+  --card-hover: #2a2a2a;
+  
+}
+
+/* Shadow Colors */
+:root {
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -116,6 +153,7 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Typography */
