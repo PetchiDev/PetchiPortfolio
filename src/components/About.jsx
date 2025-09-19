@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { User, Award, Briefcase, MapPin } from 'lucide-react'
-import userAvatar from '../assets/user-avatar.svg'
+import userAvatar from '../assets/userpic.jpg'
 import './About.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -42,14 +42,17 @@ function About() {
 
     // Stats counter animation
     statsRef.current.forEach((stat, index) => {
-      const endValue = parseInt(stat.textContent)
+      const statData = stats[index]
+      const endValue = statData.number
+      const suffix = statData.suffix
+      
       // Set initial value to 0
-      stat.textContent = 0
+      stat.textContent = "0" + suffix
       
       gsap.fromTo(stat,
-        { textContent: 0 },
+        { textContent: "0" + suffix },
         {
-          textContent: endValue,
+          textContent: endValue + suffix,
           duration: 1.5,
           ease: "power2.out",
           snap: { textContent: 1 },

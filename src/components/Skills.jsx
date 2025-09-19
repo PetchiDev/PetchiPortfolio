@@ -87,9 +87,8 @@ function Skills() {
     {
       title: "Database & Cloud",
       skills: [
-        { name: "SQL Server", percentage: 85, level: "Advanced" },
         { name: "MSSQL", percentage: 80, level: "Advanced" },
-        { name: "Azure", percentage: 90, level: "Expert" },
+        { name: "Azure", percentage: 70, level: "Intermediate" },
         { name: "TypeORM", percentage: 75, level: "Intermediate" }
       ]
     },

@@ -54,7 +54,10 @@ function Navbar() {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId)
     if (element) {
-      gsap.to(window, { duration: 1, scrollTo: element, ease: "power2.inOut" })
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
     }
   }
 

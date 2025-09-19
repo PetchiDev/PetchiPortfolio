@@ -113,7 +113,7 @@ function Hero() {
         
         <p ref={descriptionRef} className="hero-description">
           Building high-performance web applications with 3+ years of expertise in 
-          Angular, React, and modern web technologies. Passionate about creating 
+          Angular, React, .NET and modern web technologies. Passionate about creating 
           seamless user experiences and scalable solutions.
         </p>
         

@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Mail, Phone, MapPin, Briefcase, Linkedin, Github, ExternalLink } from 'lucide-react'
+import emailjs from '@emailjs/browser'
 import './Contact.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -12,6 +13,8 @@ function Contact() {
   const formRef = useRef()
   const contactInfoRef = useRef()
   const socialLinksRef = useRef([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [toast, setToast] = useState({ show: false, message: '', type: '' })
 
   useEffect(() => {
     // Contact section scroll animation
@@ -86,21 +89,50 @@ function Contact() {
     })
   }, [])
 
-  const handleSubmit = (e) => {
+  const showToast = (message, type) => {
+    setToast({ show: true, message, type })
+    setTimeout(() => {
+      setToast({ show: false, message: '', type: '' })
+    }, 4000)
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
     
-    // Form submission animation
-    gsap.to(formRef.current, {
-      scale: 0.95,
-      duration: 0.1,
-      yoyo: true,
-      repeat: 1,
-      ease: "power2.inOut",
-      onComplete: () => {
-        alert('Thank you for your message! I\'ll get back to you soon.')
-        e.target.reset()
-      }
-    })
+    const formData = new FormData(e.target)
+    const templateParams = {
+      from_name: formData.get('name'),
+      message: formData.get('message'),
+      from_email: formData.get('email'),
+      subject: formData.get('subject')
+    }
+
+    try {
+      // Form submission animation
+      gsap.to(formRef.current, {
+        scale: 0.95,
+        duration: 0.1,
+        yoyo: true,
+        repeat: 1,
+        ease: "power2.inOut"
+      })
+
+      await emailjs.send(
+        "service_y9epouc",
+        "template_y2z379l", 
+        templateParams,
+        "Lo78HE4gRbFCR7WRX"
+      )
+      
+      showToast('Successfully sent!', 'success')
+      e.target.reset()
+    } catch (error) {
+      console.error('EmailJS Error:', error)
+      showToast('Some issues happened please try again later!', 'error')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const socialLinks = [
@@ -157,8 +189,8 @@ function Contact() {
                 ></textarea>
               </div>
               
-              <button type="submit" className="submit-button">
-                Send Message
+              <button type="submit" className="submit-button" disabled={isLoading}>
+                {isLoading ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
@@ -238,6 +270,21 @@ function Contact() {
           </div>
         </div>
       </div>
+      
+      {/* Toast Notification */}
+      {toast.show && (
+        <div className={`toast toast-${toast.type}`}>
+          <div className="toast-content">
+            <span className="toast-message">{toast.message}</span>
+            <button 
+              className="toast-close" 
+              onClick={() => setToast({ show: false, message: '', type: '' })}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
