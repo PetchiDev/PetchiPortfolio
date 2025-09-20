@@ -20,9 +20,9 @@
 }
 
 .container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 .section-title {
@@ -49,8 +49,9 @@
 
 .skills-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 100%;
 }
 
 .skill-category {
@@ -196,9 +197,85 @@
   transition: color 0.3s ease;
 }
 
-@media (max-width: 768px) {
+/* Extra large screens (1400px+) */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+    padding: 0 3rem;
+  }
+  
+  .skills-container {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3.5rem;
+  }
+}
+
+/* Large screens (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .container {
+    max-width: 1200px;
+    padding: 0 2rem;
+  }
+  
+  .skills-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+  }
+}
+
+/* Desktop screens (992px - 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .skills-container {
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 2.5rem;
+  }
+  
+  .skill-category {
+    padding: 2rem;
+  }
+}
+
+/* Tablet screens (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+  
   .skills {
-    padding: 4rem 0;
+    padding: 5rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.75rem;
+    margin-bottom: 3.5rem;
+  }
+  
+  .skills-container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .skill-category {
+    padding: 1.75rem;
+  }
+  
+  .skill-item {
+    padding: 1.25rem;
+  }
+}
+
+/* Mobile landscape (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .skills {
+    padding: 4.5rem 0;
   }
   
   .section-title {
@@ -208,7 +285,7 @@
   
   .skills-container {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.75rem;
   }
   
   .skill-category {
@@ -217,5 +294,142 @@
   
   .skill-item {
     padding: 1rem;
+  }
+  
+  .category-title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Mobile portrait (480px - 575px) */
+@media (max-width: 575px) and (min-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .skills {
+    padding: 4rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.25rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .skills-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .skill-category {
+    padding: 1.25rem;
+  }
+  
+  .skill-item {
+    padding: 0.875rem;
+  }
+  
+  .category-title {
+    font-size: 1.125rem;
+  }
+  
+  .skill-name {
+    font-size: 1rem;
+  }
+  
+  .skill-level {
+    font-size: 0.75rem;
+  }
+}
+
+/* Small mobile (360px - 479px) */
+@media (max-width: 479px) and (min-width: 360px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .skills {
+    padding: 3.5rem 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .skills-container {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .skill-category {
+    padding: 1rem;
+  }
+  
+  .skill-item {
+    padding: 0.75rem;
+  }
+  
+  .category-title {
+    font-size: 1rem;
+  }
+  
+  .skill-name {
+    font-size: 0.95rem;
+  }
+  
+  .skill-level {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+  
+  .skill-percentage {
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra small mobile (< 360px) */
+@media (max-width: 359px) {
+  .container {
+    padding: 0 0.25rem;
+  }
+  
+  .skills {
+    padding: 3rem 0;
+  }
+  
+  .section-title {
+    font-size: 1.875rem;
+    margin-bottom: 1.75rem;
+  }
+  
+  .skills-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .skill-category {
+    padding: 0.875rem;
+  }
+  
+  .skill-item {
+    padding: 0.625rem;
+  }
+  
+  .category-title {
+    font-size: 0.95rem;
+  }
+  
+  .skill-name {
+    font-size: 0.9rem;
+  }
+  
+  .skill-level {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+  }
+  
+  .skill-percentage {
+    font-size: 0.75rem;
   }
 }

@@ -16,9 +16,9 @@
 }
 
 .container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 .section-title {
@@ -46,8 +46,9 @@
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 3rem;
   align-items: center;
+  max-width: 100%;
 }
 
 .about-text {
@@ -176,9 +177,90 @@
   letter-spacing: 2px;
 }
 
-@media (max-width: 768px) {
+/* Extra large screens (1400px+) */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+    padding: 0 3rem;
+  }
+  
+  .about-content {
+    gap: 5rem;
+  }
+  
+  .image-container {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+/* Large screens (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .container {
+    max-width: 1200px;
+    padding: 0 2rem;
+  }
+  
+  .about-content {
+    gap: 4rem;
+  }
+}
+
+/* Desktop screens (992px - 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .about-content {
+    gap: 3.5rem;
+  }
+  
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+/* Tablet screens (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+  
   .about {
-    padding: 4rem 0;
+    padding: 5rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.75rem;
+    margin-bottom: 3.5rem;
+  }
+  
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .image-container {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+/* Mobile landscape (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .about {
+    padding: 4.5rem 0;
   }
   
   .section-title {
@@ -188,20 +270,157 @@
   
   .about-content {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
+  }
+  
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  
+  .about-description {
+    font-size: 1rem;
+  }
+  
+  .image-container {
+    width: 260px;
+    height: 260px;
+  }
+}
+
+/* Mobile portrait (480px - 575px) */
+@media (max-width: 575px) and (min-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .about {
+    padding: 4rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.25rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
   
   .about-stats {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .about-description {
+    font-size: 0.95rem;
+  }
+  
+  .image-container {
+    width: 240px;
+    height: 240px;
+  }
+  
+  .stat-item {
+    padding: 1.25rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+}
+
+/* Small mobile (360px - 479px) */
+@media (max-width: 479px) and (min-width: 360px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .about {
+    padding: 3.5rem 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  
+  .about-stats {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+  
+  .about-description {
+    font-size: 0.9rem;
+  }
+  
+  .image-container {
+    width: 220px;
+    height: 220px;
+  }
+  
+  .stat-item {
+    padding: 1rem;
+  }
+  
+  .stat-number {
+    font-size: 1.75rem;
+  }
+  
+  .stat-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra small mobile (< 360px) */
+@media (max-width: 359px) {
+  .container {
+    padding: 0 0.25rem;
+  }
+  
+  .about {
+    padding: 3rem 0;
+  }
+  
+  .section-title {
+    font-size: 1.875rem;
+    margin-bottom: 1.75rem;
+  }
+  
+  .about-content {
+    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
   
-  .image-placeholder {
-    width: 250px;
-    height: 250px;
+  .about-stats {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
   
-  .code-symbol {
-    font-size: 3rem;
+  .about-description {
+    font-size: 0.85rem;
+  }
+  
+  .image-container {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .stat-item {
+    padding: 0.875rem;
+  }
+  
+  .stat-number {
+    font-size: 1.5rem;
+  }
+  
+  .stat-label {
+    font-size: 0.75rem;
   }
 }

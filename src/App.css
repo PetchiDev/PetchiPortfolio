@@ -18,11 +18,14 @@ body {
   line-height: 1.6;
   color: #374151;
   background: #ffffff;
+  overflow-x: hidden;
 }
 
 .App {
   min-height: 100vh;
   position: relative;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Scrollbar Styling */
@@ -75,9 +78,17 @@ img {
 
 /* Utility Classes */
 .container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
+  max-width: 100%;
+}
+
+/* Ensure all sections take full width */
+section {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .section-title {
@@ -102,8 +113,55 @@ img {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+/* Extra large screens (1400px+) */
+@media (min-width: 1400px) {
   .container {
+    max-width: 1400px;
+    padding: 0 3rem;
+  }
+}
+
+/* Ultra large screens (1600px+) */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1600px;
+    padding: 0 4rem;
+  }
+}
+
+/* Large screens (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .container {
+    max-width: 1200px;
+    padding: 0 2rem;
+  }
+}
+
+/* Desktop screens (992px - 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+  .container {
+    max-width: 100%;
+    padding: 0 1.5rem;
+  }
+}
+
+/* Tablet screens (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: 0 1.25rem;
+  }
+  
+  .section-title {
+    font-size: 2.75rem;
+    margin-bottom: 3.5rem;
+  }
+}
+
+/* Mobile landscape (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+  .container {
+    max-width: 100%;
     padding: 0 1rem;
   }
   
@@ -113,9 +171,41 @@ img {
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile portrait (480px - 575px) */
+@media (max-width: 575px) and (min-width: 480px) {
+  .container {
+    max-width: 100%;
+    padding: 0 0.75rem;
+  }
+  
+  .section-title {
+    font-size: 2.25rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+/* Small mobile (360px - 479px) */
+@media (max-width: 479px) and (min-width: 360px) {
+  .container {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+  
   .section-title {
     font-size: 2rem;
     margin-bottom: 2rem;
+  }
+}
+
+/* Extra small mobile (< 360px) */
+@media (max-width: 359px) {
+  .container {
+    max-width: 100%;
+    padding: 0 0.25rem;
+  }
+  
+  .section-title {
+    font-size: 1.875rem;
+    margin-bottom: 1.75rem;
   }
 }

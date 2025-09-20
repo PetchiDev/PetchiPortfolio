@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Menu, X } from 'lucide-react'
 import './Navbar.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -9,6 +10,7 @@ function Navbar() {
   const navRef = useRef()
   const logoRef = useRef()
   const menuItemsRef = useRef([])
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     // Navbar entrance animation
@@ -59,6 +61,12 @@ function Navbar() {
         block: 'start'
       })
     }
+    // Close mobile menu after navigation
+    setIsMobileMenuOpen(false)
+  }
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
   return (
@@ -68,7 +76,8 @@ function Navbar() {
           <span className="logo-text">Petchiappan</span>
         </div>
         
-        <ul className="nav-menu">
+        {/* Desktop Menu */}
+        <ul className="nav-menu desktop-menu">
           {['home', 'about', 'skills', 'projects', 'contact'].map((item, index) => (
             <li 
               key={item}
@@ -84,6 +93,25 @@ function Navbar() {
             </li>
           ))}
         </ul>
+
+        {/* Mobile Menu Button */}
+       
+
+        {/* Mobile Menu */}
+        <div className={`mobile-menu ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
+          <ul className="mobile-nav-list">
+            {['home', 'about', 'skills', 'projects', 'contact'].map((item, index) => (
+              <li key={item} className="mobile-nav-item">
+                <button 
+                  onClick={() => scrollToSection(item)}
+                  className="mobile-nav-link"
+                >
+                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </nav>
   )

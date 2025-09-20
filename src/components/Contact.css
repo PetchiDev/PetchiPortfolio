@@ -16,9 +16,9 @@
 }
 
 .container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 .section-title {
@@ -46,8 +46,9 @@
 .contact-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 3rem;
   align-items: start;
+  max-width: 100%;
 }
 
 .contact-form {
@@ -252,14 +253,62 @@
   font-size: 0.9rem;
 }
 
-@media (max-width: 768px) {
+/* Extra large screens (1400px+) */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+    padding: 0 3rem;
+  }
+  
+  .contact-content {
+    gap: 5rem;
+  }
+  
+  .contact-form {
+    padding: 3rem;
+  }
+}
+
+/* Large screens (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .container {
+    max-width: 1200px;
+    padding: 0 2rem;
+  }
+  
+  .contact-content {
+    gap: 4rem;
+  }
+}
+
+/* Desktop screens (992px - 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .contact-content {
+    gap: 3.5rem;
+  }
+  
+  .contact-form {
+    padding: 2.25rem;
+  }
+}
+
+/* Tablet screens (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+  
   .contact {
-    padding: 4rem 0;
+    padding: 5rem 0;
   }
   
   .section-title {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
+    font-size: 2.75rem;
+    margin-bottom: 3.5rem;
   }
   
   .contact-content {
@@ -277,8 +326,268 @@
   
   .social-link {
     flex: 1;
+    min-width: 140px;
+    justify-content: center;
+  }
+}
+
+/* Mobile landscape (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .contact {
+    padding: 4.5rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .contact-form {
+    padding: 1.75rem;
+  }
+  
+  .contact-info p {
+    font-size: 1rem;
+  }
+  
+  .social-icons {
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  
+  .social-link {
+    flex: 1;
+    min-width: 130px;
+    justify-content: center;
+  }
+}
+
+/* Mobile portrait (480px - 575px) */
+@media (max-width: 575px) and (min-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .contact {
+    padding: 4rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.25rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .contact-form {
+    padding: 1.5rem;
+  }
+  
+  .contact-form h3 {
+    font-size: 1.25rem;
+  }
+  
+  .contact-info p {
+    font-size: 0.95rem;
+  }
+  
+  .contact-item {
+    padding: 0.875rem;
+  }
+  
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.875rem;
+  }
+  
+  .contact-icon .icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .social-icons {
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .social-link {
+    flex: 1;
     min-width: 120px;
     justify-content: center;
+    padding: 0.625rem 0.875rem;
+  }
+  
+  .social-icon {
+    font-size: 1.1rem;
+  }
+  
+  .social-name {
+    font-size: 0.85rem;
+  }
+}
+
+/* Small mobile (360px - 479px) */
+@media (max-width: 479px) and (min-width: 360px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .contact {
+    padding: 3.5rem 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  
+  .contact-form {
+    padding: 1.25rem;
+  }
+  
+  .contact-form h3 {
+    font-size: 1.125rem;
+  }
+  
+  .contact-info p {
+    font-size: 0.9rem;
+  }
+  
+  .contact-item {
+    padding: 0.75rem;
+  }
+  
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    margin-right: 0.75rem;
+  }
+  
+  .contact-icon .icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .contact-item strong {
+    font-size: 0.9rem;
+  }
+  
+  .contact-item p {
+    font-size: 0.8rem;
+  }
+  
+  .social-icons {
+    justify-content: center;
+    gap: 0.4rem;
+  }
+  
+  .social-link {
+    flex: 1;
+    min-width: 110px;
+    justify-content: center;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .social-icon {
+    font-size: 1rem;
+  }
+  
+  .social-name {
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra small mobile (< 360px) */
+@media (max-width: 359px) {
+  .container {
+    padding: 0 0.25rem;
+  }
+  
+  .contact {
+    padding: 3rem 0;
+  }
+  
+  .section-title {
+    font-size: 1.875rem;
+    margin-bottom: 1.75rem;
+  }
+  
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .contact-form {
+    padding: 1rem;
+  }
+  
+  .contact-form h3 {
+    font-size: 1rem;
+  }
+  
+  .contact-info p {
+    font-size: 0.85rem;
+  }
+  
+  .contact-item {
+    padding: 0.625rem;
+  }
+  
+  .contact-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 0.625rem;
+  }
+  
+  .contact-icon .icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .contact-item strong {
+    font-size: 0.85rem;
+  }
+  
+  .contact-item p {
+    font-size: 0.75rem;
+  }
+  
+  .social-icons {
+    justify-content: center;
+    gap: 0.3rem;
+  }
+  
+  .social-link {
+    flex: 1;
+    min-width: 100px;
+    justify-content: center;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .social-icon {
+    font-size: 0.9rem;
+  }
+  
+  .social-name {
+    font-size: 0.75rem;
   }
 }
 
