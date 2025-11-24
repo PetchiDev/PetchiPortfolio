@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^1.10.90",
     "gsap": "^3.13.0",
     "lucide-react": "^0.544.0",
     "prop-types": "^15.8.1",

@@ -424,3 +424,132 @@
     font-size: 0.75rem;
   }
 }
+
+.work-highlights {
+  margin-top: 5rem;
+  padding: 3rem 2rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-md);
+}
+
+.highlights-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0 0 2.5rem 0;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.highlight-item {
+  padding: 2rem;
+  background: var(--card-hover);
+  border-radius: 0.75rem;
+  border: 1px solid var(--card-border);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.highlight-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.highlight-item:hover::before {
+  transform: scaleY(1);
+}
+
+.highlight-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+}
+
+.highlight-icon {
+  width: 48px;
+  height: 48px;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 0.75rem;
+  color: #0a0a0a;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.highlight-item:hover .highlight-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.highlight-item h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+}
+
+.highlight-item p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .work-highlights {
+    margin-top: 3rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .highlights-title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .highlights-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .highlight-item {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .work-highlights {
+    margin-top: 2rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .highlights-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .highlight-item {
+    padding: 1.25rem;
+  }
+
+  .highlight-item h4 {
+    font-size: 1.1rem;
+  }
+}

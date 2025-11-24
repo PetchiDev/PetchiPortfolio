@@ -36,6 +36,24 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.hero-robot {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 500px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.hero-robot canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .hero-content {
   text-align: center;
   color: var(--text-primary);
@@ -241,6 +259,12 @@
 
 /* Desktop screens (992px - 1199px) */
 @media (max-width: 1199px) and (min-width: 992px) {
+  .hero-robot {
+    width: 350px;
+    height: 450px;
+    right: 1%;
+  }
+
   .hero-content {
     padding: 0 1.5rem;
   }
@@ -261,6 +285,10 @@
 
 /* Tablet screens (768px - 991px) */
 @media (max-width: 991px) and (min-width: 768px) {
+  .hero-robot {
+    display: none;
+  }
+
   .hero-content {
     padding: 0 1.25rem;
   }

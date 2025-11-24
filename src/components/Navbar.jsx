@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Menu, X } from 'lucide-react'
+import ThemeToggle from './ThemeToggle'
 import './Navbar.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -10,6 +11,7 @@ function Navbar() {
   const navRef = useRef()
   const logoRef = useRef()
   const menuItemsRef = useRef([])
+  const hamburgerRef = useRef()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -67,6 +69,13 @@ function Navbar() {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
+    if (hamburgerRef.current) {
+      gsap.to(hamburgerRef.current, {
+        rotation: isMobileMenuOpen ? 0 : 180,
+        duration: 0.3,
+        ease: "power2.out"
+      })
+    }
   }
 
   return (
@@ -94,11 +103,36 @@ function Navbar() {
           ))}
         </ul>
 
+        {/* Desktop Theme Toggle */}
+        <div className="nav-right desktop-menu">
+          <ThemeToggle />
+        </div>
+
+        {/* Mobile: Theme Toggle next to Logo */}
+        <div className="nav-right mobile-theme-toggle">
+          <ThemeToggle />
+        </div>
+
         {/* Mobile Menu Button */}
-       
+        <button 
+          ref={hamburgerRef}
+          className="mobile-menu-button"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
 
         {/* Mobile Menu */}
-        <div className={`mobile-menu ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
+        <div 
+          className={`mobile-menu ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}
+          onClick={(e) => {
+            // Close menu when clicking outside
+            if (e.target === e.currentTarget) {
+              setIsMobileMenuOpen(false)
+            }
+          }}
+        >
           <ul className="mobile-nav-list">
             {['home', 'about', 'skills', 'projects', 'contact'].map((item, index) => (
               <li key={item} className="mobile-nav-item">

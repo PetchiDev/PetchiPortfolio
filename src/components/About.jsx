@@ -13,6 +13,7 @@ function About() {
   const contentRef = useRef()
   const statsRef = useRef([])
   const imageRef = useRef()
+  const highlightsRef = useRef(null)
 
   useEffect(() => {
     // About section scroll animation
@@ -39,6 +40,14 @@ function About() {
       { x: 0, opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" },
       "-=0.6"
     )
+    
+    if (highlightsRef.current) {
+      tl.fromTo(highlightsRef.current,
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+        "-=0.4"
+      )
+    }
 
     // Stats counter animation
     statsRef.current.forEach((stat, index) => {
@@ -102,7 +111,7 @@ function About() {
             </p>
             
             <p className="about-description">
-              My journey in software development began with a B.Tech in Mechanical Engineering 
+              My journey in software development began with a B.E in Mechanical Engineering 
               from SNS College of Technology, Coimbatore. However, my passion for technology 
               led me to transition into software development, where I've been creating 
               innovative solutions ever since.
@@ -139,6 +148,42 @@ function About() {
                   <span>Software Developer</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div ref={highlightsRef} className="work-highlights">
+          <h3 className="highlights-title">Key Expertise & Achievements</h3>
+          <div className="highlights-grid">
+            <div className="highlight-item">
+              <Award className="highlight-icon" />
+              <h4>Legacy Migration Specialist</h4>
+              <p>Expert in migrating legacy AngularJS applications to modern Angular frameworks, ensuring zero downtime and improved performance.</p>
+            </div>
+            <div className="highlight-item">
+              <Briefcase className="highlight-icon" />
+              <h4>Full-Stack Development</h4>
+              <p>Proficient in both frontend (Angular, React) and backend (.NET Core, ASP.NET Core Web API) technologies for end-to-end solutions.</p>
+            </div>
+            <div className="highlight-item">
+              <MapPin className="highlight-icon" />
+              <h4>Cloud Expertise</h4>
+              <p>4 Microsoft Azure certifications including Azure Fundamentals, Developer, Administrator, and Solutions Architect Associate.</p>
+            </div>
+            <div className="highlight-item">
+              <User className="highlight-icon" />
+              <h4>Performance Optimization</h4>
+              <p>Experienced in optimizing database queries, API performance, and frontend rendering for maximum efficiency and user experience.</p>
+            </div>
+            <div className="highlight-item">
+              <Award className="highlight-icon" />
+              <h4>Modern Architecture</h4>
+              <p>Designing scalable monorepo architectures with Next.js 15, microservices, and clean service-oriented backend patterns.</p>
+            </div>
+            <div className="highlight-item">
+              <Briefcase className="highlight-icon" />
+              <h4>API Development</h4>
+              <p>Building RESTful APIs with ASP.NET Core, NestJS, and implementing resilient HTTP clients with proper error handling.</p>
             </div>
           </div>
         </div>

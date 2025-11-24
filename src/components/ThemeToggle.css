@@ -1,7 +1,5 @@
 .theme-toggle {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
+  position: relative;
   z-index: 1001;
   background: none;
   border: none;
@@ -92,9 +90,7 @@
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .theme-toggle {
-    top: 1rem;
-    right: 1rem;
-    padding: 0.25rem;
+    padding: 0.35rem;
   }
   
   .toggle-track {
