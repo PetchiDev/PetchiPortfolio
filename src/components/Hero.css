@@ -49,6 +49,54 @@
   transition: opacity 0.3s ease;
 }
 
+.hero-3d-model {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  transform: translateY(-50%);
+  width: 450px;
+  height: 550px;
+  z-index: 1;
+  pointer-events: auto;
+  opacity: 0.95;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.hero-3d-model:hover {
+  transform: translateY(-50%) scale(1.02);
+}
+
+.hero-3d-model:active {
+  transform: translateY(-50%) scale(0.98);
+}
+
+.hero-3d-model canvas {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 20px;
+  background: transparent;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .hero-3d-model {
+    width: 350px;
+    height: 450px;
+    right: 1%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-3d-model {
+    width: 300px;
+    height: 400px;
+    right: 0;
+    opacity: 0.8;
+  }
+}
+
 .hero-robot canvas {
   width: 100% !important;
   height: 100% !important;

@@ -1,10 +1,38 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useMemo, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Canvas } from '@react-three/fiber'
+import { PerspectiveCamera } from '@react-three/drei'
 import Spline from '@splinetool/react-spline'
 import './Hero.css'
 
 gsap.registerPlugin(ScrollTrigger)
+
+// Function to calculate experience dynamically
+function calculateExperience(startDate) {
+  const start = new Date(startDate)
+  const today = new Date()
+  
+  let years = today.getFullYear() - start.getFullYear()
+  let months = today.getMonth() - start.getMonth()
+  
+  // Adjust if current month is before start month
+  if (months < 0) {
+    years--
+    months += 12
+  }
+  
+  // Adjust if current day is before start day (haven't completed full month yet)
+  if (today.getDate() < start.getDate()) {
+    months--
+    if (months < 0) {
+      years--
+      months += 12
+    }
+  }
+  
+  return { years, months }
+}
 
 function Hero() {
   const heroRef = useRef()
@@ -15,6 +43,13 @@ function Hero() {
   const floatingElementsRef = useRef([])
   const splineRef = useRef()
   const robotRef = useRef()
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
+
+  // Calculate experience dynamically from start date (24th March 2022)
+  // This will automatically update every month on the 24th
+  const experience = useMemo(() => {
+    return calculateExperience('2022-03-24')
+  }, [])
 
   useEffect(() => {
     // Hero section entrance animation with enhanced effects
@@ -199,28 +234,17 @@ function Hero() {
       })
     })
 
-    // Cursor follow effect for robot head
+    // Cursor position tracking for 3D model
     const handleMouseMove = (e) => {
-      if (!robotRef.current || !splineRef.current) return
-      
       const rect = heroRef.current?.getBoundingClientRect()
       if (!rect) return
       
-      // Get cursor position relative to hero section
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2 // -1 to 1
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2 // -1 to 1
+      // Get cursor position relative to hero section (normalized to -1 to 1)
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2
       
-      // Convert to radians and limit rotation
-      const rotationY = (x * 30) * (Math.PI / 180) // max 30 degrees in radians
-      const rotationX = (-y * 20) * (Math.PI / 180) // max 20 degrees in radians
-      
-      // Smoothly animate rotation towards cursor using GSAP
-      gsap.to(robotRef.current.rotation, {
-        y: rotationY,
-        x: rotationX,
-        duration: 0.5,
-        ease: "power2.out"
-      })
+      // Update cursor position state for 3D model
+      setCursorPosition({ x, y })
     }
 
     // Add mouse move listener
@@ -282,16 +306,8 @@ function Hero() {
         ))}
       </div>
 
-      {/* Spline Robot on the right */}
-      {/* TODO: Add your Spline robot scene URL here */}
-      {/* 
-      <div className="hero-robot">
-        <Spline 
-          scene="YOUR_SPLINE_SCENE_URL_HERE"
-          onLoad={onLoad}
-        />
-      </div>
-      */}
+      {/* 3D Model with React Three Fiber */}
+
       
       <div className="hero-content">
         <h1 ref={titleRef} className="hero-title">
@@ -304,7 +320,7 @@ function Hero() {
         </h2>
         
         <p ref={descriptionRef} className="hero-description">
-          Building high-performance web applications with 3+ years of expertise in 
+          Building high-performance web applications with {experience.years} {experience.years === 1 ? 'year' : 'years'}{experience.months > 0 ? ` and ${experience.months} ${experience.months === 1 ? 'month' : 'months'}` : ''} of expertise in 
           Angular, React, .NET and modern web technologies. Passionate about creating 
           seamless user experiences and scalable solutions.
         </p>
