@@ -1,9 +1,9 @@
 import { useEffect, useRef, useCallback, useMemo, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Canvas } from '@react-three/fiber'
-import { PerspectiveCamera } from '@react-three/drei'
-import Spline from '@splinetool/react-spline'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { useGLTF, OrbitControls, PerspectiveCamera } from '@react-three/drei'
+import * as THREE from 'three'
 import './Hero.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -41,9 +41,9 @@ function Hero() {
   const descriptionRef = useRef()
   const ctaRef = useRef()
   const floatingElementsRef = useRef([])
-  const splineRef = useRef()
-  const robotRef = useRef()
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
+  const [isClicked, setIsClicked] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
 
   // Calculate experience dynamically from start date (24th March 2022)
   // This will automatically update every month on the 24th
@@ -255,39 +255,11 @@ function Hero() {
     }
   }, [])
 
-  // Spline onLoad handler
-  const onLoad = useCallback((spline) => {
-    splineRef.current = spline
-    
-    // Find robot head object (try common naming conventions)
-    const robotHead = spline.findObjectByName('Head') || 
-                      spline.findObjectByName('head') || 
-                      spline.findObjectByName('Robot') ||
-                      spline.findObjectByName('robot') ||
-                      spline.findObjectByName('RobotHead')
-    
-    if (robotHead) {
-      robotRef.current = robotHead
-      
-      // Initial floating animation
-      gsap.to(robotHead.position, {
-        y: robotHead.position.y + 10,
-        duration: 2,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true
-      })
-
-      // Gentle rotation animation
-      gsap.to(robotHead.rotation, {
-        y: robotHead.rotation.y + 0.5,
-        duration: 4,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true
-      })
-    }
-  }, [])
+  // Handle click on 3D model
+  const handleModelClick = () => {
+    setIsClicked(true)
+    setTimeout(() => setIsClicked(false), 1000)
+  }
 
   return (
     <section ref={heroRef} id="home" className="hero">
@@ -307,7 +279,31 @@ function Hero() {
       </div>
 
       {/* 3D Model with React Three Fiber */}
-
+      <div 
+        className="hero-3d-model"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={handleModelClick}
+      >
+        <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1} />
+          <pointLight position={[-10, -10, -5]} intensity={0.5} />
+          <RobotModel 
+            cursorPosition={cursorPosition}
+            isClicked={isClicked}
+            isHovered={isHovered}
+          />
+          <OrbitControls 
+            enableZoom={false}
+            enablePan={false}
+            autoRotate={false}
+            maxPolarAngle={Math.PI / 2}
+            minPolarAngle={Math.PI / 2}
+          />
+        </Canvas>
+        <div className="model-hint"> Click me!</div>
+      </div>
       
       <div className="hero-content">
         <h1 ref={titleRef} className="hero-title">
@@ -348,5 +344,211 @@ function Hero() {
     </section>
   )
 }
+
+// 3D Robot Model Component with Interactive Features
+function RobotModel({ cursorPosition, isClicked, isHovered }) {
+  // Load GLB file - using public folder for easier access
+  const { scene } = useGLTF('/models/base_basic_pbr.glb')
+  const modelRef = useRef()
+  const headRef = useRef()
+  const leftEarRef = useRef()
+  const rightEarRef = useRef()
+  const leftEyeRef = useRef()
+  const rightEyeRef = useRef()
+  
+  // Find model parts by traversing the scene
+  useEffect(() => {
+    if (!scene) return
+    
+    scene.traverse((child) => {
+      if (child.isMesh) {
+        const name = child.name.toLowerCase()
+        
+        // Find head (usually the main/largest mesh or named "head")
+        if (name.includes('head') || name.includes('face') || !headRef.current) {
+          if (!headRef.current || child.geometry.boundingBox.max.y > headRef.current.geometry.boundingBox.max.y) {
+            headRef.current = child
+          }
+        }
+        
+        // Find ears (usually side meshes or named "ear")
+        if (name.includes('ear') || name.includes('antenna')) {
+          if (name.includes('left') || name.includes('l_')) {
+            leftEarRef.current = child
+          } else if (name.includes('right') || name.includes('r_')) {
+            rightEarRef.current = child
+          } else if (!leftEarRef.current) {
+            leftEarRef.current = child
+          } else if (!rightEarRef.current) {
+            rightEarRef.current = child
+          }
+        }
+        
+        // Find eyes (usually small meshes or named "eye")
+        if (name.includes('eye') || name.includes('pupil')) {
+          if (name.includes('left') || name.includes('l_')) {
+            leftEyeRef.current = child
+          } else if (name.includes('right') || name.includes('r_')) {
+            rightEyeRef.current = child
+          } else if (!leftEyeRef.current) {
+            leftEyeRef.current = child
+          } else if (!rightEyeRef.current) {
+            rightEyeRef.current = child
+          }
+        }
+      }
+    })
+    
+    // If no specific parts found, use the main mesh
+    if (!headRef.current && scene.children[0]) {
+      headRef.current = scene.children[0]
+    }
+    
+    modelRef.current = scene
+  }, [scene])
+  
+  // Animation time for smooth animations
+  const timeRef = useRef(0)
+  const blinkTimeRef = useRef(0)
+  const earMoveTimeRef = useRef(0)
+  const clickAnimationRef = useRef(0)
+  
+  // Main animation loop
+  useFrame((state, delta) => {
+    timeRef.current += delta
+    blinkTimeRef.current += delta
+    earMoveTimeRef.current += delta
+    
+    if (!modelRef.current) return
+    
+    // 1. FLOATING ANIMATION - Smooth up/down movement
+    if (modelRef.current) {
+      modelRef.current.position.y = Math.sin(timeRef.current * 0.5) * 0.3
+    }
+    
+    // 2. HEAD TRACKING CURSOR - Follows mouse movement
+    if (headRef.current && cursorPosition) {
+      const { x, y } = cursorPosition
+      headRef.current.rotation.y = THREE.MathUtils.lerp(headRef.current.rotation.y, x * 0.5, 0.1)
+      headRef.current.rotation.x = THREE.MathUtils.lerp(headRef.current.rotation.x, -y * 0.3, 0.1)
+    }
+    
+    // 3. EYES BLINKING - Random blinking animation (improved)
+    if (blinkTimeRef.current > 2 + Math.random() * 3) {
+      blinkTimeRef.current = 0
+      
+      // Blink animation with smooth transition
+      if (leftEyeRef.current) {
+        const originalScale = leftEyeRef.current.scale.y || 1
+        // Close eye
+        gsap.to(leftEyeRef.current.scale, {
+          y: 0.05,
+          duration: 0.1,
+          ease: "power2.in",
+          onComplete: () => {
+            // Open eye
+            if (leftEyeRef.current) {
+              gsap.to(leftEyeRef.current.scale, {
+                y: originalScale,
+                duration: 0.15,
+                ease: "power2.out"
+              })
+            }
+          }
+        })
+      }
+      
+      if (rightEyeRef.current) {
+        const originalScale = rightEyeRef.current.scale.y || 1
+        // Close eye
+        gsap.to(rightEyeRef.current.scale, {
+          y: 0.05,
+          duration: 0.1,
+          ease: "power2.in",
+          onComplete: () => {
+            // Open eye
+            if (rightEyeRef.current) {
+              gsap.to(rightEyeRef.current.scale, {
+                y: originalScale,
+                duration: 0.15,
+                ease: "power2.out"
+              })
+            }
+          }
+        })
+      }
+    }
+    
+    // 4. EARS MOVING - Enhanced ear movement animation (left and right)
+    if (leftEarRef.current) {
+      // Left ear - more pronounced movement
+      leftEarRef.current.rotation.z = Math.sin(earMoveTimeRef.current * 1.2) * 0.4
+      leftEarRef.current.rotation.x = Math.sin(earMoveTimeRef.current * 0.8) * 0.2
+      leftEarRef.current.rotation.y = Math.sin(earMoveTimeRef.current * 0.5) * 0.15
+    }
+    
+    if (rightEarRef.current) {
+      // Right ear - opposite movement for natural look
+      rightEarRef.current.rotation.z = -Math.sin(earMoveTimeRef.current * 1.2) * 0.4
+      rightEarRef.current.rotation.x = Math.sin(earMoveTimeRef.current * 0.8) * 0.2
+      rightEarRef.current.rotation.y = -Math.sin(earMoveTimeRef.current * 0.5) * 0.15
+    }
+    
+    // 5. HOVER EFFECT - Scale up slightly when hovered
+    if (modelRef.current) {
+      const targetScale = isHovered ? 1.1 : 1.0
+      modelRef.current.scale.x = THREE.MathUtils.lerp(modelRef.current.scale.x, targetScale, 0.1)
+      modelRef.current.scale.y = THREE.MathUtils.lerp(modelRef.current.scale.y, targetScale, 0.1)
+      modelRef.current.scale.z = THREE.MathUtils.lerp(modelRef.current.scale.z, targetScale, 0.1)
+    }
+    
+    // 6. CLICK REACTION - Bounce and spin when clicked
+    if (isClicked) {
+      clickAnimationRef.current += delta * 5
+      
+      if (modelRef.current) {
+        // Bounce effect
+        modelRef.current.position.y = Math.sin(clickAnimationRef.current) * 0.5
+        // Spin effect
+        modelRef.current.rotation.y += delta * 2
+        
+        // Ears wiggle excitedly
+        if (leftEarRef.current) {
+          leftEarRef.current.rotation.z = Math.sin(clickAnimationRef.current * 10) * 0.5
+        }
+        if (rightEarRef.current) {
+          rightEarRef.current.rotation.z = -Math.sin(clickAnimationRef.current * 10) * 0.5
+        }
+        
+        // Eyes pop
+        if (leftEyeRef.current) {
+          leftEyeRef.current.scale.setScalar(1.2)
+        }
+        if (rightEyeRef.current) {
+          rightEyeRef.current.scale.setScalar(1.2)
+        }
+      }
+    } else {
+      clickAnimationRef.current = 0
+      
+      // Reset after click animation
+      if (modelRef.current && clickAnimationRef.current === 0) {
+        modelRef.current.rotation.y = THREE.MathUtils.lerp(modelRef.current.rotation.y, 0, 0.1)
+      }
+      
+      if (leftEyeRef.current) {
+        leftEyeRef.current.scale.setScalar(THREE.MathUtils.lerp(leftEyeRef.current.scale.x, 1, 0.1))
+      }
+      if (rightEyeRef.current) {
+        rightEyeRef.current.scale.setScalar(THREE.MathUtils.lerp(rightEyeRef.current.scale.x, 1, 0.1))
+      }
+    }
+  })
+  
+  return <primitive object={scene} ref={modelRef} />
+}
+
+// Preload the model
+useGLTF.preload('/models/base_basic_pbr.glb')
 
 export default Hero

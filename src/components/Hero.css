@@ -504,3 +504,75 @@
     font-size: 0.75rem;
   }
 }
+
+/* 3D Model Container */
+.hero-3d-model {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 600px;
+  z-index: 1;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.hero-3d-model:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.hero-3d-model canvas {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 20px;
+}
+
+.model-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 212, 255, 0.9);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  animation: pulse 2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-3d-model {
+    width: 300px;
+    height: 400px;
+    right: 2%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-3d-model {
+    width: 250px;
+    height: 300px;
+    right: 0;
+    opacity: 0.8;
+  }
+  
+  .model-hint {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
