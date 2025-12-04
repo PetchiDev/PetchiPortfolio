@@ -5,6 +5,70 @@
   transition: background-color 0.3s ease;
 }
 
+/* Circular Testimonials Styling */
+.projects-testimonials-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: var(--spacing-xl) 0;
+  overflow: hidden;
+}
+
+.projects-testimonials {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.projects-testimonials img {
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Enhanced animations for circular testimonials */
+.projects-testimonials-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--primary-color)05 0%, transparent 70%);
+  animation: pulse-glow 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Prevent scrollbars */
+.projects {
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+.projects .container {
+  overflow: hidden;
+}
+
 .dark .projects {
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
 }

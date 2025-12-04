@@ -1,273 +1,289 @@
 .reviews {
-  padding: 5rem 0;
+  padding: 6rem 0;
   background: var(--bg-primary);
   transition: background-color 0.3s ease;
-}
-
-.reviews-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.review-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 1rem;
-  padding: 2rem;
-  transition: all 0.3s ease;
-  box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
 }
 
-.review-card::before {
+.reviews::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+}
+
+.container {
   width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1;
 }
 
-.review-card:hover::before {
-  transform: scaleX(1);
-}
-
-.review-card:hover {
-  box-shadow: var(--shadow-lg);
-  border-color: var(--primary-color);
-}
-
-.review-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.company-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 0.75rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0a0a0a;
-  flex-shrink: 0;
-}
-
-.company-info {
-  flex: 1;
-}
-
-.company-name {
-  font-size: 1.5rem;
+.section-title {
+  text-align: center;
+  font-size: 3rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 0.25rem 0;
-}
-
-.service-type {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-.review-rating {
-  display: flex;
-  gap: 0.25rem;
-  margin-bottom: 1.5rem;
-}
-
-.star {
-  color: #fbbf24;
-  transition: transform 0.2s ease;
-}
-
-.star.filled {
-  color: #f59e0b;
-}
-
-.review-card:hover .star {
-  transform: scale(1.1);
-}
-
-.review-description {
-  margin-bottom: 1.5rem;
-}
-
-.review-description p {
-  color: var(--text-secondary);
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-
-.review-highlights {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: var(--card-hover);
-  border-radius: 0.5rem;
-}
-
-.review-highlights h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 0.75rem 0;
-}
-
-.review-highlights ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.review-highlights li {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  padding: 0.5rem 0;
-  padding-left: 1.5rem;
+  margin-bottom: 4rem;
   position: relative;
-  line-height: 1.5;
+  transition: color 0.3s ease;
 }
 
-.review-highlights li::before {
-  content: '✓';
+.section-title::after {
+  content: '';
   position: absolute;
-  left: 0;
-  color: var(--primary-color);
-  font-weight: bold;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
 }
 
-.review-testimonial {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--card-border);
-  position: relative;
+/* Animated Testimonials Wrapper */
+.reviews-testimonials {
+  margin-top: 2rem;
 }
 
-.quote-icon {
-  color: var(--primary-color);
-  opacity: 0.3;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-
-.testimonial-text {
-  font-style: italic;
-  color: var(--text-primary);
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 0 0 0.75rem 0;
-}
-
-.testimonial-author {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin: 0;
-}
-
+/* Reviews Footer */
 .reviews-footer {
-  margin-top: 4rem;
-  padding: 3rem 2rem;
+  margin-top: 6rem;
+  padding: 4rem 2rem;
   background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 1rem;
-  box-shadow: var(--shadow-md);
+  border: 2px solid var(--card-border);
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.reviews-footer::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+  opacity: 0.05;
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .reviews-footer h3 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--text-primary);
   text-align: center;
-  margin: 0 0 2rem 0;
+  margin: 0 0 3rem 0;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  position: relative;
+  z-index: 1;
 }
 
 .footer-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .footer-item {
   text-align: center;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
   background: var(--card-hover);
-  border-radius: 0.75rem;
-  transition: all 0.3s ease;
+  border-radius: 1rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.footer-item:hover::before {
+  left: 100%;
 }
 
 .footer-item:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
+  border-color: var(--primary-color);
 }
 
 .footer-item h4 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: var(--primary-color);
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 1rem 0;
+  position: relative;
+  z-index: 1;
 }
 
 .footer-item p {
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.8;
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .reviews-container {
-    grid-template-columns: 1fr;
+@media (min-width: 1400px) {
+  .container {
+    padding: 0 3rem;
+  }
+  
+  .reviews-footer {
+    padding: 5rem 3rem;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .reviews-footer {
+    padding: 3.5rem 2rem;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+  
+  .reviews {
+    padding: 5rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.75rem;
+    margin-bottom: 3.5rem;
+  }
+  
+  .reviews-footer {
+    margin-top: 4rem;
+    padding: 3rem 1.5rem;
+  }
+  
+  .reviews-footer h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
-
-  .review-card {
-    padding: 1.5rem;
+  
+  .footer-item {
+    padding: 1.5rem 1rem;
   }
+}
 
+@media (max-width: 767px) and (min-width: 576px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .reviews {
+    padding: 4.5rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  
   .reviews-footer {
-    padding: 2rem 1.5rem;
+    margin-top: 3rem;
+    padding: 2.5rem 1.5rem;
   }
-
+  
+  .reviews-footer h3 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+  
   .footer-content {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-}
-
-@media (max-width: 480px) {
-  .reviews {
-    padding: 3rem 0;
-  }
-
-  .review-card {
-    padding: 1.25rem;
-  }
-
-  .company-name {
-    font-size: 1.25rem;
-  }
-
-  .reviews-footer {
+  
+  .footer-item {
     padding: 1.5rem 1rem;
   }
+}
 
+@media (max-width: 575px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .reviews {
+    padding: 4rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.25rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .reviews-footer {
+    margin-top: 3rem;
+    padding: 2rem 1rem;
+  }
+  
   .reviews-footer h3 {
     font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .footer-item {
+    padding: 1.25rem 1rem;
+  }
+  
+  .footer-item h4 {
+    font-size: 1.25rem;
+  }
+  
+  .footer-item p {
+    font-size: 0.9rem;
   }
 }
